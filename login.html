@@ -10,7 +10,7 @@
     <div class="login-container">
       <div class="login-box">
         <div class="profile-image"></div>
-        <h2>LOGIN</h2>
+        <h2>Welcome Back</h2>
         <form id="loginForm">
           <div class="input-group">
             <input type="text" id="username" required>
@@ -27,5 +27,67 @@
         </form>
       </div>
     </div>
+
+    <script>
+      document.addEventListener('DOMContentLoaded', () => {
+    const form = document.getElementById('loginForm');
+    const usernameInput = document.getElementById('username');
+    const passwordInput = document.getElementById('password');
+    const loginBtn = document.querySelector('.login-btn');
+
+    const validateInputs = () => {
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+        const passwordValid = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password);
+
+        if (username && passwordValid) {
+            loginBtn.disabled = false;
+            loginBtn.style.opacity = '1';
+            loginBtn.style.cursor = 'pointer';
+        } else {
+            loginBtn.disabled = true;
+            loginBtn.style.opacity = '0.5';
+            loginBtn.style.cursor = 'not-allowed';
+        }
+    };
+
+    // Disable button by default
+    loginBtn.disabled = true;
+    loginBtn.style.opacity = '0.5';
+    loginBtn.style.cursor = 'not-allowed';
+
+    // Real-time validation
+    usernameInput.addEventListener('input', validateInputs);
+    passwordInput.addEventListener('input', validateInputs);
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const username = usernameInput.value.trim();
+        const password = passwordInput.value.trim();
+
+        if (!username) {
+            alert('Please fill in the username field.');
+            return;
+        }
+
+        if (!password) {
+            alert('Please fill in the password field.');
+            return;
+        }if (!password && !username) {
+            alert('Please fill in the password field.');
+            return;
+        }
+
+        if (!/^(?=.*[a-z])(?=.*[A-Z])(?=.*\d).{8,}$/.test(password)) {
+            alert('Password must contain at least one uppercase letter, one lowercase letter, one number, and be at least 8 characters long.');
+            return;
+        }
+
+        alert('Login successful!');
+        form.submit();
+    });
+});
+
+    </script>
   </body>
 </html>
